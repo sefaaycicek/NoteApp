@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "417888194466",
+    "project_id": "azegitim-6d5fd",
+    "storage_bucket": "azegitim-6d5fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417888194466:android:1ffbcd0bfd61d4de64ecfb",
+        "android_client_info": {
+          "package_name": "com.sirketismi.noteapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHofJBsg7GINCPtuDCmSlaJGDwFxGv-BU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

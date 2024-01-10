@@ -20,3 +20,9 @@ class Migration4to5 : Migration(4, 5) {
         db.execSQL("ALTER TABLE 'User' ADD COLUMN 'age' INTEGER NOT NULL")
     }
 }
+
+class Migration5to6 : Migration(5, 6) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE 'NoteEntity' ADD COLUMN 'tag' TEXT NOT NULL DEFAULT ''")
+    }
+}

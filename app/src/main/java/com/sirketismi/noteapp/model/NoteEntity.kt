@@ -10,6 +10,9 @@ data class NoteEntity(
     @PrimaryKey(autoGenerate = true) val uid : Int = 0,
     @ColumnInfo(name = "title") val title : String?,
     @ColumnInfo(name = "note_detail") val detail : String?,
-    @ColumnInfo(name = "noteDate") val date : Long = 0
+    @ColumnInfo(name = "noteDate") val date : Long = 0,
+    @ColumnInfo(name = "tag") val tag : String
 ) {
+
+    constructor() : this(0, "", "", 0L, "")
 }

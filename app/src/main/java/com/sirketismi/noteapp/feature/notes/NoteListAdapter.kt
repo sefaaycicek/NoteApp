@@ -6,9 +6,14 @@ import android.preference.PreferenceActivity.Header
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.sirketismi.noteapp.databinding.ListItemHeaderBinding
 import com.sirketismi.noteapp.databinding.ListItemNoteBinding
+import com.sirketismi.noteapp.databinding.ListItemTagsBinding
+import com.sirketismi.noteapp.model.HeaderWrapper
 import com.sirketismi.noteapp.model.NoteEntity
+import com.sirketismi.noteapp.model.TagsWrapper
 import com.sirketismi.noteapp.util.format
 import java.util.Date
 
@@ -16,6 +21,7 @@ class NoteListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val HEADER = 1
     val ITEM = 2
+    val TAGS = 3
 
     var newList = mutableListOf<Any>()
     var noteList = listOf<NoteEntity>()
@@ -25,19 +31,33 @@ class NoteListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         newList.clear()
         val groupedList = noteList.groupBy { it.date }
+        val tagList = noteList.map { it.tag }.filter { !it.isNullOrEmpty() }.distinct()
+        val tagsWrapper = TagsWrapper(tagList)
+
+        if(tagList.isNotEmpty()) {
+            newList.add(tagsWrapper)
+        }
 
         groupedList.forEach {key, value ->
-            newList.add(key)
+            newList.add(HeaderWrapper(key))
+
             newList.addAll(value)
 
+            if(tagList.isNotEmpty()) {
+                newList.add(tagsWrapper)
+            }
+
         }
+
+
         notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {
         val item = newList.get(position)
         when(item) {
-            is Long -> return HEADER
+            is TagsWrapper -> return TAGS
+            is HeaderWrapper -> return HEADER
             else -> return ITEM
         }
     }
@@ -55,6 +75,11 @@ class NoteListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 viewHolder = HeaderViewHolder(binding)
             }
 
+            TAGS -> {
+                var binding = ListItemTagsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                viewHolder = TagsViewHolder(binding)
+            }
+
             ITEM -> {
                 var binding = ListItemNoteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 viewHolder = NoteViewHolder(binding)
@@ -68,14 +93,20 @@ class NoteListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when(holder.itemViewType)  {
             HEADER -> {
                 val viewHolder = holder as HeaderViewHolder
-                val item = newList.get(position) as Long
-                val date = Date(item)
+                val item = newList.get(position) as HeaderWrapper
+                val date = Date(item.time)
                 viewHolder.bind(date.format())
             }
 
             ITEM-> {
                 val viewHolder = holder as NoteViewHolder
                 val item = newList.get(position) as NoteEntity
+                viewHolder.bind(item)
+            }
+
+            TAGS-> {
+                val viewHolder = holder as TagsViewHolder
+                val item = newList.get(position) as TagsWrapper
                 viewHolder.bind(item)
             }
         }
@@ -92,5 +123,19 @@ class NoteViewHolder(val binding : ListItemNoteBinding) : RecyclerView.ViewHolde
 class HeaderViewHolder(val binding : ListItemHeaderBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(title : String) {
         binding.txtNote.text = title
+    }
+}
+
+class TagsViewHolder(val binding : ListItemTagsBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun bind(tagItem : TagsWrapper) {
+        val layoutManager = FlexboxLayoutManager(binding.root.context)
+        layoutManager.flexWrap = FlexWrap.WRAP
+
+        binding.recylerView.layoutManager = layoutManager
+
+        val adapter = TagsAdapter()
+        binding.recylerView.adapter = adapter
+
+        adapter.setList(tagItem.tags)
     }
 }

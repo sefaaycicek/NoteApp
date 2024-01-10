@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sirketismi.noteapp.model.NoteEntity
+import com.sirketismi.noteapp.repository.FirebaseRepository
 import com.sirketismi.noteapp.repository.NotesRepository
 import com.sirketismi.noteapp.util.format
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,9 +14,10 @@ import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
-class AddNewNoteViewModel @Inject constructor(val repository: NotesRepository): ViewModel() {
+class AddNewNoteViewModel @Inject constructor(val repository: NotesRepository, val firebaseRepository : FirebaseRepository): ViewModel() {
     var noteTitle = MutableLiveData<String>()
     var noteDetail = MutableLiveData<String>()
+    var noteTag = MutableLiveData<String>()
     var noteDateText = MutableLiveData<String>()
     var noteDateValue : Date = Date()
 
@@ -45,9 +47,15 @@ class AddNewNoteViewModel @Inject constructor(val repository: NotesRepository): 
         val note = NoteEntity(
             title = noteTitle.value,
             detail = noteDetail.value,
-            date = noteDateValue.time)
+            date = noteDateValue.time,
+            tag = noteTag.value ?: "")
+
         viewModelScope.launch {
             repository.insert(note)
+        }
+
+        firebaseRepository.addNote(note) {
+
         }
     }
 }

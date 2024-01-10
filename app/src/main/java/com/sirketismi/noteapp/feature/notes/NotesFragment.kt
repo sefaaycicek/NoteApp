@@ -15,11 +15,13 @@ import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.sirketismi.noteapp.R
 import com.sirketismi.noteapp.databinding.FragmentNotesBinding
+import com.sirketismi.noteapp.model.TagsWrapper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NotesFragment : Fragment() {
 
+    val adapter = TagsAdapter()
     lateinit var noteListAdapter : NoteListAdapter
 
     lateinit var binding : FragmentNotesBinding
@@ -41,7 +43,10 @@ class NotesFragment : Fragment() {
         }
 
         prepareRecyclerView()
+        prepareTagREcyler()
         observeLiveData()
+
+        viewModel.getAll()
 
         return binding.root
     }
@@ -49,6 +54,10 @@ class NotesFragment : Fragment() {
     private fun observeLiveData() {
         viewModel.getAllData().observe(viewLifecycleOwner) {
             noteListAdapter.setList(it)
+
+            val tagList = it.map { it.tag }.filter { !it.isNullOrEmpty() }.distinct()
+            val tagsWrapper = TagsWrapper(tagList)
+            adapter.setList(tagsWrapper.tags)
         }
     }
 
@@ -63,5 +72,16 @@ class NotesFragment : Fragment() {
 
         noteListAdapter = NoteListAdapter()
         binding.recylerView.adapter = noteListAdapter
+    }
+
+    private fun prepareTagREcyler() {
+        val layoutManager = FlexboxLayoutManager(binding.root.context)
+        layoutManager.flexWrap = FlexWrap.WRAP
+
+        binding.recylerViewTags.layoutManager = layoutManager
+
+        binding.recylerViewTags.adapter = adapter
+
+
     }
 }

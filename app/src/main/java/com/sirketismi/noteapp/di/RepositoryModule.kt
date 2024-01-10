@@ -1,5 +1,7 @@
 package com.sirketismi.noteapp.di
 
+import com.sirketismi.noteapp.repository.FirebaseRepository
+import com.sirketismi.noteapp.repository.FirebaseRepositoryInterface
 import com.sirketismi.noteapp.repository.NoteRepositoryInterface
 import com.sirketismi.noteapp.repository.NotesRepository
 import dagger.Binds
@@ -14,4 +16,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindNoteRepository(im : NotesRepository) : NoteRepositoryInterface
+
+    @Binds
+    @Singleton
+    abstract fun bindFirebaseRepository(im : FirebaseRepository) : FirebaseRepositoryInterface
 }
