@@ -2,4 +2,27 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#2196F3</color> <!-- Primary color for your app -->
+    <color name="colorPrimaryDark">#1976D2</color> <!-- Darker variant for the status bar -->
+    <color name="colorAccent">#FF4081</color> <!-- Accent color for UI elements -->
+
+    <color name="colorBackground">#FFFFFF</color> <!-- Background color for your app -->
+    <color name="colorText">#333333</color> <!-- Text color for your app -->
+    <color name="colorHint">#AAAAAA</color> <!-- Hint (placeholder) text color -->
+
+    <color name="colorButtonNormal">#2196F3</color> <!-- Default button color -->
+    <color name="colorButtonPressed">#1565C0</color> <!-- Pressed state button color -->
+
+    <color name="colorDivider">#B6B6B6</color> <!-- Divider color between elements -->
+
+
+    <color name="colorRed">#FF0000</color> <!-- Kırmızı -->
+    <color name="colorBlue">#0000FF</color> <!-- Mavi -->
+    <color name="colorGreen">#00FF00</color> <!-- Yeşil -->
+    <color name="colorYellow">#FFFF00</color> <!-- Sarı -->
+    <color name="colorOrange">#FFA500</color> <!-- Turuncu -->
+    <color name="colorPurple">#800080</color> <!-- Mor -->
+    <color name="colorPink">#FFC0CB</color> <!-- Pembe -->
+    <color name="colorBrown">#8B4513</color> <!-- Kahverengi -->
 </resources>

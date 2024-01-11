@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.sirketismi.noteapp.R
 import com.sirketismi.noteapp.databinding.FragmentNotesBinding
 import com.sirketismi.noteapp.model.TagsWrapper
@@ -40,6 +41,10 @@ class NotesFragment : Fragment() {
         binding.btnSave.setOnClickListener {
             val action = NotesFragmentDirections.actionNotesToNewnote()
             findNavController().navigate(action)
+
+            //FirebaseAuth.getInstance().signOut()
+            //findNavController().navigate(R.id.loginFragment)
+
         }
 
         prepareRecyclerView()

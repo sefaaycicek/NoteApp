@@ -24,10 +24,10 @@ fun Fragment.showDatePicker(onDateSelected : (Long)->Unit ) {
     datePicker.show(childFragmentManager, "date_picker")
 }
 
-fun Fragment.showMessage() {
+fun Fragment.showMessage(title :String, detail : String) {
     MaterialAlertDialogBuilder(requireContext())
-        .setTitle("Başlık")
-        .setMessage("Detay içerik mesjaı")
+        .setTitle(title)
+        .setMessage(detail)
         .setNeutralButton("Vazgeç") { dialog, which->
 
         }

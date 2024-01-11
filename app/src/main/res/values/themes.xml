@@ -17,4 +17,20 @@
         <item name="android:navigationBarColor">@color/white</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="ElevatedButtonStyle" parent="Widget.Material3.Button.ElevatedButton">
+        <!-- Düğme rengi -->
+        <item name="backgroundTint">@color/colorBlue</item>
+
+        <!-- Metin rengi -->
+        <item name="android:textColor">#FFFFFF</item>
+
+        <!-- Yükseltme efekti rengi -->
+        <item name="elevationOverlayColor">@color/colorButtonPressed</item>
+
+        <!-- Diğer özellikler -->
+        <!-- <item name="android:padding">...</item> -->
+        <!-- <item name="android:layout_width">...</item> -->
+        <!-- <item name="android:layout_height">...</item> -->
+    </style>
 </resources>
