@@ -13,6 +13,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.sirketismi.noteapp.databinding.FragmentSplashBinding
 import com.sirketismi.noteapp.util.MySharedPreferences
+import com.sirketismi.noteapp.util.MySharedPreferencesInterface
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.annotation.Inherited
 import javax.inject.Inject
@@ -21,8 +22,9 @@ import javax.inject.Inject
 class SplashFragment : Fragment() {
 
     val viewModel: SplashViewModel by viewModels()
+
     //@Inject
-    //lateinit var preferences: MySharedPreferences
+    ///lateinit var preferences: MySharedPreferencesInterface
 
     lateinit var binding : FragmentSplashBinding
     override fun onCreate(savedInstanceState: Bundle?) {

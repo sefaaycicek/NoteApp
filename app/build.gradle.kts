@@ -31,12 +31,36 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            keyAlias = "key0"
+            keyPassword = "qweqwe"
+            storeFile = file("../certificates/AzNoteAppReleaseKeyStore")
+            storePassword = "qweqwe"
+        }
+
+        create("dev") {
+            keyAlias = "key0"
+            keyPassword = "qweqwe"
+            storeFile = file("../certificates/DebugAzNoteAppReleaseKeyStore")
+            storePassword = "qweqwe"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")
+        }
+
+        debug {
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("dev")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -58,9 +82,13 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
 
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-analytics")
+
+    implementation("com.facebook.android:facebook-login:latest.release")
+    implementation("com.facebook.android:facebook-android-sdk:15.1.0")
 
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")

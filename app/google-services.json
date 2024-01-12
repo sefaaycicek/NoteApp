@@ -12,7 +12,28 @@
           "package_name": "com.sirketismi.noteapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "417888194466-75iccvv41t047fs24ll3eb6ejsgr3e0v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sirketismi.noteapp",
+            "certificate_hash": "cd42138a517a4a60388e09efdaff9043daea0477"
+          }
+        },
+        {
+          "client_id": "417888194466-l0aopv9hval54jk88lvpqemreas4qlvt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sirketismi.noteapp",
+            "certificate_hash": "02452f812a787bc3ced5feace31b413582b402f4"
+          }
+        },
+        {
+          "client_id": "417888194466-9ejl99m8pl1q79uf37vajopf9j9plscm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDHofJBsg7GINCPtuDCmSlaJGDwFxGv-BU"
@@ -20,7 +41,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "417888194466-9ejl99m8pl1q79uf37vajopf9j9plscm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

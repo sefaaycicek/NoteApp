@@ -15,12 +15,14 @@ import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.sirketismi.noteapp.R
+import com.sirketismi.noteapp.base.BaseFragment
 import com.sirketismi.noteapp.databinding.FragmentNotesBinding
+import com.sirketismi.noteapp.model.NoteEntity
 import com.sirketismi.noteapp.model.TagsWrapper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NotesFragment : Fragment() {
+class NotesFragment : BaseFragment() {
 
     val adapter = TagsAdapter()
     lateinit var noteListAdapter : NoteListAdapter
@@ -58,12 +60,20 @@ class NotesFragment : Fragment() {
 
     private fun observeLiveData() {
         viewModel.getAllData().observe(viewLifecycleOwner) {
-            noteListAdapter.setList(it)
-
-            val tagList = it.map { it.tag }.filter { !it.isNullOrEmpty() }.distinct()
-            val tagsWrapper = TagsWrapper(tagList)
-            adapter.setList(tagsWrapper.tags)
+            refreshList(it)
         }
+
+        viewModel.refreshList.observe(viewLifecycleOwner) {
+            refreshList(viewModel.responseList)
+        }
+    }
+
+    fun refreshList(list : List<NoteEntity>) {
+        noteListAdapter.setList(list)
+
+        val tagList = list.map { it.tag }.filter { !it.isNullOrEmpty() }.distinct()
+        val tagsWrapper = TagsWrapper(tagList)
+        adapter.setList(tagsWrapper.tags)
     }
 
     private fun prepareRecyclerView() {
