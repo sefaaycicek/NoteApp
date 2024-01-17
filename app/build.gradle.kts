@@ -31,6 +31,18 @@ android {
         }
     }
 
+    flavorDimensions("environment")
+    productFlavors {
+        create("development") {
+            applicationIdSuffix = "dev"
+            dimension = "environment"
+        }
+        create("stage") {
+            applicationIdSuffix = "stage"
+            dimension = "environment"
+        }
+    }
+
     signingConfigs {
         create("release") {
             keyAlias = "key0"
@@ -49,7 +61,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("release")
         }

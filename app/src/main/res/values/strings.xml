@@ -5,8 +5,8 @@
     <string name="btn_save_title">Not Ekle</string>
     <string name="error_login_title">Giriş yapılamadı!</string>
     <string name="error_login_detail">Lütfen bilgileri kontrol edin.</string>
-    <string name="facebook_app_id">7071679612898660</string>
-    <string name="fb_login_protocol_scheme">fb7071679612898660</string>
-    <string name="facebook_client_token">172fdee0dec224f3c68d851a0d980225</string>
+    <string name="facebook_app_id">1549903125862873</string>
+    <string name="fb_login_protocol_scheme">fb1549903125862873</string>
+    <string name="facebook_client_token">ee7b0de4b346f6ab5dec8aa62178cb46</string>
     <string name="google_client_id">417888194466-9ejl99m8pl1q79uf37vajopf9j9plscm.apps.googleusercontent.com</string>
 </resources>

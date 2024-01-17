@@ -6,9 +6,14 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.sirketismi.noteapp.model.NoteEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NotesDao {
+
+    @Query("SELECT * FROM noteentity")
+    fun getAllFlow() : Flow<List<NoteEntity>>
+
     @Query("SELECT * FROM noteentity")
     fun getAll() : LiveData<List<NoteEntity>>
 

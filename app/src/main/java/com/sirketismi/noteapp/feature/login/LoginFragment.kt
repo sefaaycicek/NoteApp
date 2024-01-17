@@ -46,9 +46,10 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater)
-
+        auth = Firebase.auth
+        //auth.signOut()
         binding.loginButton.setOnClickListener {
-           // login()
+           //login()
             loginFacebook()
         }
 
@@ -129,7 +130,6 @@ class LoginFragment : Fragment() {
 
 
     fun loginFacebook() {
-        //binding.loginButton.setReadPermissions(arrayListOf("email", "public_profile"))
         LoginManager.getInstance().registerCallback(
             callbackManager,
             object : FacebookCallback<LoginResult> {
@@ -152,15 +152,6 @@ class LoginFragment : Fragment() {
 
     val PERMISSIONS = Arrays.asList("public_profile", "email")
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-
-           // callbackManager.onActivityResult(requestCode, resultCode, data)
-
-        }
-    }
-
     private fun handleFacebookAccessToken(token: AccessToken) {
         Log.d("TAG", "handleFacebookAccessToken:$token")
 
@@ -171,7 +162,7 @@ class LoginFragment : Fragment() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "signInWithCredential:success")
                     val user = auth.currentUser
-                    //updateUI(user)
+                    openApp()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("TAG", "signInWithCredential:failure", task.exception)

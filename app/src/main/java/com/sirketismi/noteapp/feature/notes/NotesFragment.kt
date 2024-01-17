@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +20,13 @@ import com.sirketismi.noteapp.base.BaseFragment
 import com.sirketismi.noteapp.databinding.FragmentNotesBinding
 import com.sirketismi.noteapp.model.NoteEntity
 import com.sirketismi.noteapp.model.TagsWrapper
+import com.sirketismi.noteapp.repository.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.subscribe
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NotesFragment : BaseFragment() {
@@ -32,6 +39,14 @@ class NotesFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+       /* viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.flow.map {
+                it * it
+            }.collect {
+                print("$it")
+            }
+        }*/
     }
 
     override fun onCreateView(
@@ -44,7 +59,7 @@ class NotesFragment : BaseFragment() {
             val action = NotesFragmentDirections.actionNotesToNewnote()
             findNavController().navigate(action)
 
-            //FirebaseAuth.getInstance().signOut()
+            FirebaseAuth.getInstance().signOut()
             //findNavController().navigate(R.id.loginFragment)
 
         }
@@ -53,18 +68,35 @@ class NotesFragment : BaseFragment() {
         prepareTagREcyler()
         observeLiveData()
 
-        viewModel.getAll()
+
+        //viewModel.getAll()
 
         return binding.root
     }
 
     private fun observeLiveData() {
-        viewModel.getAllData().observe(viewLifecycleOwner) {
+        /*viewModel.getAllData().observe(viewLifecycleOwner) {
             refreshList(it)
         }
 
         viewModel.refreshList.observe(viewLifecycleOwner) {
             refreshList(viewModel.responseList)
+        }*/
+
+        viewModel.fetchVersionCode.observe(viewLifecycleOwner) { result->
+            when(result){
+                is Resource.Loading -> {
+//                    showProgress()
+                }
+
+                is Resource.Success -> {
+                    refreshList(result.data)
+                }
+
+                is Resource.Failure -> {
+
+                }
+            }
         }
     }
 
